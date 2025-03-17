@@ -5803,7 +5803,7 @@ a {
 
 .case-01 {
   width: 98vw;
-  height: 90vh;
+  height: 85vh;
   perspective-origin: 50% 0;
   transform-origin: 50% 0;
   background-color: #DA6343 !important;
@@ -5942,7 +5942,7 @@ a {
   background-color: #3F3D3C;
   flex-direction: column;
   align-items: center;
-  padding-top: 1vw;
+  padding-top: 4vw;
   padding-left: 1vw;
   padding-right: 1vw;
   display: flex;
@@ -6400,7 +6400,7 @@ a {
 
 .case-02 {
   width: 98vw;
-  height: 90vh;
+  height: 85vh;
   perspective-origin: 50% 0;
   transform-origin: 50% 0;
   background-color: #D2CBBF !important;
@@ -6418,7 +6418,7 @@ a {
 
 .case-03 {
   width: 98vw;
-  height: 90vh;
+  height: 85vh;
   perspective-origin: 50% 0;
   transform-origin: 50% 0;
   background-color: #4F6E73 !important;
@@ -6568,7 +6568,7 @@ a {
   width: 100%;
   flex-direction: column;
   align-items: center;
-  margin-top: 10em;
+  margin-top: 6em;
   padding-top: 20em;
   padding-bottom: 5em;
   display: flex;
@@ -6693,7 +6693,7 @@ a {
 
 .case-04 {
   width: 98vw;
-  height: 90vh;
+  height: 85vh;
   perspective-origin: 50% 0;
   transform-origin: 50% 0;
   background-color: #1B1919 !important;
