@@ -5463,7 +5463,7 @@ a {
   height: 116%;
   filter: saturate(112%);
   object-fit: cover;
-  background-image: radial-gradient(circle, rgba(25, 24, 24, 0), rgba(0, 0, 0, .5)), url("../background/_av.jpg");
+  background-image: radial-gradient(circle, rgba(25, 24, 24, 0), rgba(0, 0, 0, .5)), url("../background/av.jpg");
   background-position: 0 0, 50% 0;
   background-repeat: repeat, no-repeat;
   background-size: auto, cover;
