@@ -7014,7 +7014,7 @@ a {
 .work-hero {
   z-index: 15;
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   background-color: #3F3D3C;
   flex-direction: column;
   justify-content: flex-end;
@@ -9243,7 +9243,7 @@ a {
   }
 
   .work-hero.is-work {
-    padding-top: 35vh;
+    padding-top: 20vh;
   }
 
   .work-hero-content {
@@ -9254,7 +9254,7 @@ a {
 
   .work-hero-left {
     width: 95%;
-    padding-top: 5vh;
+    padding-top: 2vh;
     padding-bottom: 4vh;
   }
 
@@ -10403,7 +10403,7 @@ a {
   }
 
   .work-image-container {
-    height: 50vh;
+    /*height: 50vh;*/
   }
 
   .work-full-img-container {
