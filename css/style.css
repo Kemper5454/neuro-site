@@ -6435,23 +6435,6 @@ a {
   overflow: hidden;
 }
 
-.case-05 {
-  width: 98vw;
-  height: 90vh;
-  perspective-origin: 50% 0;
-  transform-origin: 50% 0;
-  background-color: #624b68 !important;
-  border-radius: 5px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 3vh;
-  display: flex;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 31vh;
-  overflow: hidden;
-}
 
 .display2 {
   color: #DABB3E;
@@ -9209,10 +9192,6 @@ a {
   .footer-graphic {
     width: 36vh;
     right: 2vw;
-  }
-
-  .case-05 {
-    padding-top: 25px;
   }
 
   .mobile-logo {
