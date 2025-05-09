@@ -5385,7 +5385,7 @@ a {
   width: 97vw;
   height: 18vw;
   background-image: url("https://assets-global.website-files.com/6201a8e3c7f99b635572faff/640cdb3fc374bc71dbb26768_somefolk-tm-light.svg");
-  background-position: 50%;
+  background-position: 100%;
   background-repeat: no-repeat;
   background-size: contain;
   flex: none;
@@ -5407,7 +5407,7 @@ a {
 
 .body-main {
   cursor: auto;
-  background-color: #1b1919;
+  background-color: #060606;
 }
 
 .header-wrapper {
