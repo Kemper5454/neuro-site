@@ -6097,6 +6097,7 @@ a {
   color: #DABB3E;
   text-align: center;
   margin-bottom: 0;
+  word-spacing: 0.2vw; 
 }
 
 .para.gm.tm {
@@ -6157,6 +6158,7 @@ a {
 .para.gm-l.work {
   margin-top: 0;
   letter-spacing: 0.05em;
+  word-spacing: 0.25vw;
 }
 
 .para.gm-l.ng {
@@ -6258,6 +6260,7 @@ a {
   text-align: left;
   font-size: 1.4vw;
   line-height: 2vw;
+  word-spacing: 0.25vw;
 }
 
 .support-text.is-list {
@@ -6335,6 +6338,7 @@ a {
   font-weight: 700;
   line-height: 6vw;
   letter-spacing: -2px;
+  word-spacing: 0.7vw;
 }
 
 .heading-medium.c1 {
@@ -8407,10 +8411,12 @@ a {
   .para.gm {
     font-size: 11px;
     line-height: 12px;
+    word-spacing: 0.5vw; 
   }
 
   .para.gm.ml, .para.gm.mr {
     text-align: left;
+    
   }
 
   .para.c1, .para.c2, .para.c3, .para.c4 {
@@ -10157,6 +10163,7 @@ a {
   .support-text.dark {
     font-size: 5vw;
     line-height: 6vw;
+    word-spacing: 1.5vw;
   }
 
   .support-text.is-list {
@@ -10192,6 +10199,7 @@ a {
   .heading-medium {
     font-size: 11.5vw;
     line-height: 12vw;
+    word-spacing: 1.5vw;
   }
 
   .heading-medium.c1, .heading-medium.c2, .heading-medium.c3 {
@@ -10279,8 +10287,8 @@ a {
   }
 
   .contact-cta {
-    height: 22vh;
-    min-height: 22vh;
+    height: 17vh;
+    min-height: 17vh;
   }
 
   .footer-ident {
