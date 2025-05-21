@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ИИ Менеджер Treeda</title>
+    <link rel="stylesheet" href="chat.css" />
+</head>
+
+<body>
+    <div class="chat-title">
+        <h1>ОБЩАЙСЯ КАК<br />С ЧЕЛОВЕКОМ</h1>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header">ИИ Агент</div> <!-- новый заголовок -->
+        <div id="chat">
+            <div class="chat-messages-wrapper">
+                <div class="chat-messages"></div>
+            </div>
+        </div>
+        <div id="chat-toggle-button" class="mobile-only">
+            <button id="expand-chat">Развернуть чат</button>
+        </div>
+        <div id="chat-close-button" class="mobile-only hidden">✖</div>
+        <form id="input-form">
+            <textarea id="input" placeholder="Спросите что-нибудь..." required></textarea>
+            <button type="submit">➤</button>
+        </form>
+    </div>
+    <script src="chat.js"></script>
+</body>
+
+</html>
