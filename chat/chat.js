@@ -9,6 +9,12 @@ const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
 let messages = [systemInstruction];
 
+input.addEventListener('focus', () => {
+  setTimeout(() => {
+    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 300); // задержка, чтобы дождаться появления клавиатуры
+});
+
 function addMessage(role, content) {
     const msg = document.createElement("div");
     msg.className = `message ${role}`;
@@ -26,6 +32,8 @@ function addMessage(role, content) {
 
     scrollToBottom();
 }
+
+
 
 function linkify(text) {
     const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
