@@ -28,9 +28,15 @@ function addMessage(role, content) {
 }
 
 function linkify(text) {
-    const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]+)/gi;
+    const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
+
     return text.replace(urlPattern, (match) => {
-        return `<a href="${match}" target="_blank" rel="noopener noreferrer">${match}</a>`;
+        // Отделим финальный знак, если он не часть ссылки
+        const trailingPunctuation = /[.,!?;:)»"'’]+$/;
+        const punctuation = match.match(trailingPunctuation);
+        const cleanURL = match.replace(trailingPunctuation, '');
+        const trailing = punctuation ? punctuation[0] : '';
+        return `<a href="${cleanURL}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>${trailing}`;
     });
 }
 
