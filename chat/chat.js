@@ -2,7 +2,7 @@ const chat = document.getElementById("chat");
 const form = document.getElementById("input-form");
 const input = document.getElementById("input");
 
-const API_KEY = "sk-xq7wcUBqdHDCxyMwl4236oAmgc2XVpn3Ъ";
+const API_KEY = "sk-xq7wcUBqdHDCxyMwl4236oAmgc2XVpn3";
 const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
 let messages = [
@@ -326,7 +326,7 @@ form.addEventListener("submit", async (e) => {
     } catch (err) {
         hideLoading();
         console.error(err);
-        addMessage("assistant", "Кажется, я сломался. 🔧 Но это временно!");
+        addMessage("assistant", "Идёт плановое обновление! 🛠️ Сайт временно недоступен. Скоро вернёмся с улучшениями!");
     }
 });
 
