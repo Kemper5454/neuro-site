@@ -12,7 +12,7 @@ let messages = [systemInstruction];
 function addMessage(role, content) {
     const msg = document.createElement("div");
     msg.className = `message ${role}`;
-    msg.textContent = content;
+    msg.innerHTML = linkify(content);
     document.querySelector('.chat-messages').appendChild(msg);
 
     // Изменение padding в зависимости от количества сообщений
@@ -25,6 +25,13 @@ function addMessage(role, content) {
     }
 
     scrollToBottom();
+}
+
+function linkify(text) {
+    const urlPattern = /(\bhttps?:\/\/[^\s]+)/g;
+    return text.replace(urlPattern, (url) => {
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
 }
 
 function scrollToBottom() {
