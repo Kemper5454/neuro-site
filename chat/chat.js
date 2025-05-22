@@ -28,9 +28,9 @@ function addMessage(role, content) {
 }
 
 function linkify(text) {
-    const urlPattern = /(\bhttps?:\/\/[^\s]+)/g;
-    return text.replace(urlPattern, (url) => {
-        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]+)/gi;
+    return text.replace(urlPattern, (match) => {
+        return `<a href="${match}" target="_blank" rel="noopener noreferrer">${match}</a>`;
     });
 }
 
