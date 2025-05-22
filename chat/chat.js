@@ -18,7 +18,7 @@ fetch('instruction.json')
         console.error("Не удалось загрузить системную инструкцию:", error);
         messages.push({
             role: "system",
-            content: "Ты — цифровой консультант." // запасной вариант
+            content: "Ты — маг" // запасной вариант
         });
     });
 
