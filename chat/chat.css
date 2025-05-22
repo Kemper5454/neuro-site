@@ -169,6 +169,24 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.message a {
+    display: inline-block;
+    background-color: #DABB3E;
+    color: #1e1e1e;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    margin-top: 0.3rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    word-break: break-word;
+}
+
+.message a:hover {
+    background-color: #b79f2d;
+    color: #ffffff;
+}
+
 @media (max-width: 768px) {
     .chat-container {
         max-width: 100%;
