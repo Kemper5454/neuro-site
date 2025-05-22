@@ -7010,6 +7010,12 @@ a {
   overflow: hidden;
 }
 
+.work-hero.is-work.ai {
+  height: auto;
+  min-height: 5vh;
+}
+
+
 .work-hero.is-thanks {
   justify-content: center;
   align-items: center;
@@ -9121,7 +9127,7 @@ a {
   }
 
   .display-text.is-work {
-    font-size: 24vw;
+    font-size: 20vw;
     line-height: 20vw;
   }
 
@@ -9229,6 +9235,10 @@ a {
 
   .work-hero.is-work {
     padding-top: 20vh;
+  }
+
+  .work-hero.is-work.ai {
+    padding-top: 2vh;
   }
 
   .work-hero-content {
@@ -10131,7 +10141,7 @@ a {
   }
 
   .display-text.is-work {
-    font-size: 22vw;
+    font-size: 20vw;
     line-height: 22vw;
   }
 
