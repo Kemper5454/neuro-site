@@ -218,19 +218,21 @@ button:disabled {
     }
 
     #chat-toggle-button button {
-        width: 85%;
+        width: 90%;
         height: 55px;
         margin: 1rem auto;
         padding: 0.75rem 1rem;
         font-size: 1rem;
-        font-weight: 700;
-        background-color: #DABB3E;
-        color: #1e1e1e;
-        border: none;
-        border-radius: 16px;
+        font-weight: 550;
+        background-color: #1e1e1e;
+        color: #444;
+        border: 1px solid #444;
+        border-radius: 20px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        display: block;
-        text-align: center;
+        display: flex;              /* вместо block */
+        align-items: flex-start;    /* прижимаем к верху */
+        justify-content: flex-start;/* прижимаем к левому краю */
+        text-align: left;     
         cursor: pointer;
     }
 

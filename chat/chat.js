@@ -8,6 +8,7 @@ const API_KEY = "sk-xq7wcUBqdHDCxyMwl4236oAmgc2XVpn3";
 const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
 let messages = [systemInstruction];
+
 function addMessage(role, content) {
     const msg = document.createElement("div");
     msg.className = `message ${role}`;
