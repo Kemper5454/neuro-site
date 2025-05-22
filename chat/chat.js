@@ -16,7 +16,7 @@ fetch('instruction.json')
         console.error("Не удалось загрузить системную инструкцию:", error);
         messages.push({
             role: "system",
-            content: "Ты — маг" // запасной вариант
+            content: "Ты — маг, борешься со злом" // запасной вариант
         });
     });
 
