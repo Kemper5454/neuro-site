@@ -1,3 +1,5 @@
+import { systemInstruction } from './instruction.js';
+
 const chat = document.getElementById("chat");
 const form = document.getElementById("input-form");
 const input = document.getElementById("input");
@@ -5,16 +7,7 @@ const input = document.getElementById("input");
 const API_KEY = "sk-xq7wcUBqdHDCxyMwl4236oAmgc2XVpn3";
 const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
-let messages = [];
-
-fetch('./instruction.txt')
-  .then(res => res.text())
-  .then(text => {
-    messages.push({
-      role: "system",
-      content: text
-    });
-  });
+let messages = [systemInstruction];
 
 function addMessage(role, content) {
     const msg = document.createElement("div");
