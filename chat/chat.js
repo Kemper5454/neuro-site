@@ -31,12 +31,14 @@ function linkify(text) {
     const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
 
     return text.replace(urlPattern, (match) => {
-        // Отделим финальный знак, если он не часть ссылки
         const trailingPunctuation = /[.,!?;:)»"'’]+$/;
         const punctuation = match.match(trailingPunctuation);
         const cleanURL = match.replace(trailingPunctuation, '');
-        const trailing = punctuation ? punctuation[0] : '';
-        return `<a href="${cleanURL}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>${trailing}`;
+
+        const isFullURL = /^https?:\/\//i.test(cleanURL);
+        const href = isFullURL ? cleanURL : '//' + cleanURL;
+
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>${punctuation ? punctuation[0] : ''}`;
     });
 }
 
