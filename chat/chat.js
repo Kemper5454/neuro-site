@@ -7,7 +7,20 @@ const input = document.getElementById("input");
 const API_KEY = "sk-xq7wcUBqdHDCxyMwl4236oAmgc2XVpn3";
 const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
-let messages = [systemInstruction];
+let messages = [];
+
+fetch('instruction.json')
+    .then(response => response.json())
+    .then(systemMessage => {
+        messages.push(systemMessage);
+    })
+    .catch(error => {
+        console.error("Не удалось загрузить системную инструкцию:", error);
+        messages.push({
+            role: "system",
+            content: "Ты — цифровой консультант." // запасной вариант
+        });
+    });
 
 function addMessage(role, content) {
     const msg = document.createElement("div");
