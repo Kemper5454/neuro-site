@@ -7,18 +7,14 @@ const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
 let messages = [];
 
-fetch('./instruction.json')
-    .then(response => response.json())
-    .then(systemMessage => {
-        messages.push(systemMessage);
-    })
-    .catch(error => {
-        console.error("Не удалось загрузить системную инструкцию:", error);
-        messages.push({
-            role: "system",
-            content: "Ты — маг, борешься со злом" // запасной вариант
-        });
+fetch('./instruction.txt')
+  .then(res => res.text())
+  .then(text => {
+    messages.push({
+      role: "system",
+      content: text
     });
+  });
 
 function addMessage(role, content) {
     const msg = document.createElement("div");
