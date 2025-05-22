@@ -15,9 +15,9 @@
     </div>
 
     <div class="chat-container">
-        <div class="chat-header-wrapper mobile-only hidden">
+        <div class="chat-header-wrapper mobile-only">
             <div class="chat-header">ИИ Агент</div>
-            <div id="chat-close-button">✖</div>
+            <div id="chat-close-button" class="mobile-only hidden">✖</div>
         </div>
         <div id="chat">
             <div class="chat-messages-wrapper">
@@ -27,7 +27,6 @@
         <div id="chat-toggle-button" class="mobile-only">
             <button id="expand-chat">Спросите что-нибудь...</button>
         </div>
-        
         <form id="input-form">
             <textarea id="input" placeholder="Спросите что-нибудь..." required></textarea>
             <button type="submit">➤</button>
