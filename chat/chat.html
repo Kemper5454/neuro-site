@@ -30,6 +30,15 @@
         </form>
     </div>
     <script type="module" src="./chat.js"></script>
+    <script>
+  function updateVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
+  window.addEventListener('load', updateVH);
+  window.addEventListener('resize', updateVH);
+</script>
 </body>
 
 </html>

@@ -11,8 +11,53 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     padding: 1rem;
+}
+
+/* Контейнер чата растягивается на всю высоту, кроме input */
+.chat-container {
+  height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Сообщения должны прокручиваться */
+.chat-messages-wrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Поле ввода фиксировано снизу */
+form#input-form {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #222;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 10px;
+  z-index: 999;
+}
+
+#input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  resize: none;
+}
+
+form#input-form button {
+  background: gold;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
 }
 
 .chat-title {
