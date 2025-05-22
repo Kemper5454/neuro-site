@@ -147,14 +147,3 @@ if (isMobile) {
         inputForm.style.display = 'none';
     });
 }
-
-const chatHeaderWrapper = document.querySelector('.chat-header-wrapper');
-
-if (isMobile) {
-    chatHeaderWrapper.addEventListener('click', (e) => {
-        chatContainer.classList.remove('mobile-expanded');
-        toggleBtn.parentElement.classList.remove('hidden');
-        closeBtn.classList.add('hidden');
-        inputForm.style.display = 'none';
-    });
-}

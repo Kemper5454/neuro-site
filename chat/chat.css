@@ -40,30 +40,6 @@ body {
     user-select: none;
 }
 
-.chat-header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid #444;
-    background-color: #2b2b2b;
-    cursor: pointer;
-}
-
-.chat-header {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #DABB3E;
-    user-select: none;
-}
-
-#chat-close-button {
-    font-size: 1.5rem;
-    background: transparent;
-    color: #DABB3E;
-    cursor: pointer;
-}
-
 .chat-container {
     width: 100%;
     max-width: 900px;
