@@ -131,19 +131,20 @@ const toggleBtn = document.getElementById('expand-chat');
 const closeBtn = document.getElementById('chat-close-button');
 const inputForm = document.getElementById('input-form');
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
+const chatHeaderWrapper = document.querySelector('.chat-header-wrapper');
 
 if (isMobile) {
     toggleBtn.addEventListener('click', () => {
         chatContainer.classList.add('mobile-expanded');
         toggleBtn.parentElement.classList.add('hidden');
-        closeBtn.classList.remove('hidden');
+        chatHeaderWrapper.classList.remove('hidden');
         inputForm.style.display = 'flex';
     });
 
-    closeBtn.addEventListener('click', () => {
+    chatHeaderWrapper.addEventListener('click', () => {
         chatContainer.classList.remove('mobile-expanded');
         toggleBtn.parentElement.classList.remove('hidden');
-        closeBtn.classList.add('hidden');
+        chatHeaderWrapper.classList.add('hidden');
         inputForm.style.display = 'none';
     });
 }

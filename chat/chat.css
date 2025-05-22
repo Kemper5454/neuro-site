@@ -31,6 +31,28 @@ body {
     word-break: break-word;
 }
 
+.chat-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #444;
+    background-color: #2b2b2b;
+    color: #DABB3E;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer; /* чтобы показывался как кликабельный */
+    user-select: none;
+    position: relative;
+}
+
+.chat-header-wrapper #chat-close-button {
+    font-size: 1.5rem;
+    background: transparent;
+    color: #DABB3E;
+    z-index: 10;
+}
+
 .chat-header {
     font-weight: 700;
     font-size: 1.2rem;
@@ -229,9 +251,9 @@ button:disabled {
         border: 1px solid #444;
         border-radius: 20px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        display: flex;              /* вместо block */
-        align-items: flex-start;    /* прижимаем к верху */
-        justify-content: flex-start;/* прижимаем к левому краю */
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
         text-align: left;     
         cursor: pointer;
     }
