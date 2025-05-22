@@ -1,5 +1,3 @@
-import { systemInstruction } from './instruction.js';
-
 const chat = document.getElementById("chat");
 const form = document.getElementById("input-form");
 const input = document.getElementById("input");
