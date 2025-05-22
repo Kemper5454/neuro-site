@@ -7,7 +7,7 @@ const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
 
 let messages = [];
 
-fetch('instruction.json')
+fetch('./instruction.json')
     .then(response => response.json())
     .then(systemMessage => {
         messages.push(systemMessage);
