@@ -32,18 +32,37 @@
     </div>
     <script type="module" src="./chat/chat.js"></script>
         <script>
+const prevSessionTimeKey = 'previousSessionTime';
+
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${h}ч ${m}м ${s}с`;
+}
+
+// При загрузке страницы — показать время предыдущей сессии (если есть)
+const prevSessionSeconds = parseInt(localStorage.getItem(prevSessionTimeKey), 10);
+if (!isNaN(prevSessionSeconds) && prevSessionSeconds > 0) {
+  console.log(`Время предыдущей сессии: ${formatTime(prevSessionSeconds)}`);
+} else {
+  console.log('Информация о предыдущей сессии отсутствует');
+}
+
 const enterTime = Date.now();
 
+// Каждую секунду выводим в консоль текущую сессию
 setInterval(() => {
   const now = Date.now();
   const seconds = Math.floor((now - enterTime) / 1000);
-  console.log(`Проведено на сайте: ${seconds} секунд`);
+  console.log(`Текущая сессия: ${formatTime(seconds)}`);
 }, 1000);
 
-window.addEventListener("beforeunload", () => {
+// При уходе сохраняем длительность сессии
+window.addEventListener('beforeunload', () => {
   const leaveTime = Date.now();
   const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
-  console.log(`Всего времени на сайте: ${totalSeconds} секунд`);
+  localStorage.setItem(prevSessionTimeKey, totalSeconds);
 });
 </script>
 </body>
