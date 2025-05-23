@@ -6,6 +6,7 @@ const input = document.getElementById("input");
 
 const API_URL = 'https://paintings.eto-art.ru/chat';
 
+let isNewSession = true;
 let messages = [systemInstruction];
 
 function addMessage(role, content) {
@@ -107,7 +108,8 @@ form.addEventListener("submit", async (e) => {
                 model: "gpt-4.1-nano",
                 messages,
                 temperature: 0.5,
-                max_tokens: 2000
+                max_tokens: 2000,
+                newSession: isNewSession
             })
         });
 
@@ -130,6 +132,8 @@ form.addEventListener("submit", async (e) => {
         const reply = data.choices?.[0]?.message?.content || "[Ошибка в ответе]";
         addMessage("assistant", reply);
         messages.push({ role: "assistant", content: reply });
+
+        isNewSession = false;
 
     } catch (err) {
         hideLoading();
