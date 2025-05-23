@@ -31,13 +31,19 @@
     </div>
     <script type="module" src="./chat.js"></script>
     <script>
-  function updateVH() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
+const enterTime = Date.now();
 
-  window.addEventListener('load', updateVH);
-  window.addEventListener('resize', updateVH);
+setInterval(() => {
+  const now = Date.now();
+  const seconds = Math.floor((now - enterTime) / 1000);
+  console.log(`Проведено на сайте: ${seconds} секунд`);
+}, 1000);
+
+window.addEventListener("beforeunload", () => {
+  const leaveTime = Date.now();
+  const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
+  console.log(`Всего времени на сайте: ${totalSeconds} секунд`);
+});
 </script>
 </body>
 
