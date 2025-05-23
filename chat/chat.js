@@ -117,8 +117,8 @@ async function logFullDeviceInfo() {
                 ip,
                 platform,
                 browser,
-                enter_time: nowInMSK.toISOString(),
-                device_id: deviceId
+                enterTime: nowInMSK.toISOString(),
+                deviceId 
             }),
         });
     } catch (err) {
@@ -135,7 +135,7 @@ async function logFullDeviceInfo() {
             duration_seconds: totalSeconds
         }));
     });
-}
+} 
 
 logFullDeviceInfo();
 
