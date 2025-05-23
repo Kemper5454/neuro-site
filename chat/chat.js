@@ -41,6 +41,17 @@ function linkify(text) {
     });
 }
 
+function getOrCreateDeviceId() {
+    let id = localStorage.getItem('deviceId');
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem('deviceId', id);
+    }
+    return id;
+}
+
+const deviceId = getOrCreateDeviceId();
+
 function scrollToBottom() {
     const container = document.getElementById("chat");
     container.scrollTop = container.scrollHeight;
