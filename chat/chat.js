@@ -9,6 +9,20 @@ const API_URL = 'https://paintings.eto-art.ru/chat';
 let isNewSession = true;
 let messages = [systemInstruction];
 
+function getOrCreateDeviceId() {
+    let id = localStorage.getItem('deviceId');
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem('deviceId', id);
+        console.log("🎉 Новый deviceId сгенерирован:", id);
+    } else {
+        console.log("🔑 Найден существующий deviceId:", id);
+    }
+    return id;
+}
+
+const deviceId = getOrCreateDeviceId();
+
 function addMessage(role, content) {
     const msg = document.createElement("div");
     msg.className = `message ${role}`;
@@ -94,23 +108,36 @@ async function logFullDeviceInfo() {
     console.log("Браузер:", browser);
     console.log("IP-адрес:", ip);
     console.log("Время захода (Москва):", nowInMSK.toLocaleString("ru-RU"));
+
+    try {
+        await fetch("/device-info", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ip,
+                platform,
+                browser,
+                enter_time: nowInMSK.toISOString(),
+                device_id: deviceId
+            }),
+        });
+    } catch (err) {
+        console.warn("Не удалось отправить deviceInfo:", err);
+    }
+
+        window.addEventListener("beforeunload", () => {
+        const leaveTime = Date.now();
+        const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
+
+        navigator.sendBeacon("/session-duration", JSON.stringify({
+            ip,
+            device_id: deviceId,
+            duration_seconds: totalSeconds
+        }));
+    });
 }
 
 logFullDeviceInfo();
-
-function getOrCreateDeviceId() {
-    let id = localStorage.getItem('deviceId');
-    if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem('deviceId', id);
-        console.log("🎉 Новый deviceId сгенерирован:", id);
-    } else {
-        console.log("🔑 Найден существующий deviceId:", id);
-    }
-    return id;
-}
-
-const deviceId = getOrCreateDeviceId();
 
 function scrollToBottom() {
     const container = document.getElementById("chat");
