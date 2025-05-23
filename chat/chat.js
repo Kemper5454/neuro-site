@@ -41,6 +41,44 @@ function linkify(text) {
     });
 }
 
+function getGPUInfo() {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return "WebGL not supported";
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    return debugInfo
+        ? {
+            vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+            renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+        }
+        : "No GPU info available";
+}
+
+async function logDeviceInfo() {
+    console.log("User-Agent:", navigator.userAgent);
+    console.log("Platform:", navigator.platform);
+    console.log("Language:", navigator.language);
+    console.log("Cookies Enabled:", navigator.cookieEnabled);
+    console.log("Screen Size:", screen.width + "x" + screen.height);
+    console.log("Viewport Size:", window.innerWidth + "x" + window.innerHeight);
+    console.log("Touch Supported:", 'ontouchstart' in window || navigator.maxTouchPoints > 0);
+    console.log("Is Mobile:", /Mobi|Android/i.test(navigator.userAgent));
+    console.log("Local Time:", new Date().toString());
+
+    const gpuInfo = getGPUInfo();
+    console.log("GPU Info:", gpuInfo);
+
+    try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        console.log("Public IP:", data.ip);
+    } catch (e) {
+        console.log("IP fetch failed:", e);
+    }
+}
+
+logDeviceInfo();
+
 function getOrCreateDeviceId() {
     let id = localStorage.getItem('deviceId');
     if (!id) {
