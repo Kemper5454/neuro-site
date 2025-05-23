@@ -148,6 +148,7 @@ document.addEventListener("visibilitychange", () => {
         handlePageExit();
     }
 });
+}
 
 logFullDeviceInfo();
 
