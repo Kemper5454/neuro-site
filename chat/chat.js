@@ -125,15 +125,25 @@ async function logFullDeviceInfo() {
         console.warn("Не удалось отправить deviceInfo:", err);
     }
 
-        window.addEventListener("beforeunload", () => {
-        const leaveTime = Date.now();
-        const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
+    function handlePageExit() {
+    const leaveTime = Date.now();
+    const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
 
-        navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
-            ip,
-            deviceId,
-            duration_seconds: totalSeconds
-        }));
+    navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
+        ip,
+        deviceId,
+        duration_seconds: totalSeconds
+    }));
+    }
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") {
+            handlePageExit();
+        }
+    });
+
+    window.addEventListener("pagehide", () => {
+        handlePageExit();
     });
 } 
 
