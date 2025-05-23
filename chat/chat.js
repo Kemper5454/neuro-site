@@ -41,43 +41,45 @@ function linkify(text) {
     });
 }
 
-function getGPUInfo() {
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    if (!gl) return "WebGL not supported";
-    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-    return debugInfo
-        ? {
-            vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
-            renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-        }
-        : "No GPU info available";
-}
+async function logFullDeviceInfo() {
+    const ua = navigator.userAgent.toLowerCase();
 
-async function logDeviceInfo() {
-    console.log("User-Agent:", navigator.userAgent);
-    console.log("Platform:", navigator.platform);
-    console.log("Language:", navigator.language);
-    console.log("Cookies Enabled:", navigator.cookieEnabled);
-    console.log("Screen Size:", screen.width + "x" + screen.height);
-    console.log("Viewport Size:", window.innerWidth + "x" + window.innerHeight);
-    console.log("Touch Supported:", 'ontouchstart' in window || navigator.maxTouchPoints > 0);
-    console.log("Is Mobile:", /Mobi|Android/i.test(navigator.userAgent));
-    console.log("Local Time:", new Date().toString());
+    const platform = /android/.test(ua)
+        ? 'Android'
+        : /iphone|ipad|ipod/.test(ua)
+        ? 'iOS'
+        : /windows/.test(ua)
+        ? 'Windows'
+        : /mac/.test(ua)
+        ? 'macOS'
+        : 'Other';
 
-    const gpuInfo = getGPUInfo();
-    console.log("GPU Info:", gpuInfo);
+    const browserMatch = ua.match(/(chrome|firefox|safari|edg|opera|opr)[\/\s]?([\d.]+)/i);
+    const browser = browserMatch ? `${browserMatch[1]} ${browserMatch[2]}` : 'Unknown';
 
+    const deviceModelMatch = ua.match(/\(([^)]+)\)/);
+    const deviceModel = deviceModelMatch ? deviceModelMatch[1] : 'Не удалось определить';
+
+    const nowInMSK = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }));
+
+    let ip = 'Не удалось получить';
     try {
-        const res = await fetch('https://api.ipify.org?format=json');
+        const res = await fetch("https://api.ipify.org?format=json");
         const data = await res.json();
-        console.log("Public IP:", data.ip);
+        ip = data.ip;
     } catch (e) {
-        console.log("IP fetch failed:", e);
+        console.warn("Ошибка при получении IP:", e);
     }
+
+    console.log("📋 Информация об устройстве:");
+    console.log("Платформа:", platform);
+    console.log("Браузер:", browser);
+    console.log("Модель устройства:", deviceModel);
+    console.log("IP-адрес:", ip);
+    console.log("Время захода (Москва):", nowInMSK.toLocaleString("ru-RU"));
 }
 
-logDeviceInfo();
+logFullDeviceInfo();
 
 function getOrCreateDeviceId() {
     let id = localStorage.getItem('deviceId');
