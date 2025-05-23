@@ -42,25 +42,40 @@ function linkify(text) {
 }
 
 async function logFullDeviceInfo() {
-    const ua = navigator.userAgent.toLowerCase();
+    const ua = navigator.userAgent;
 
-    const platform = /android/.test(ua)
+    // Определяем платформу
+    const uaLower = ua.toLowerCase();
+    const platform = /android/.test(uaLower)
         ? 'Android'
-        : /iphone|ipad|ipod/.test(ua)
+        : /iphone|ipad|ipod/.test(uaLower)
         ? 'iOS'
-        : /windows/.test(ua)
+        : /windows/.test(uaLower)
         ? 'Windows'
-        : /mac/.test(ua)
+        : /mac/.test(uaLower)
         ? 'macOS'
         : 'Other';
 
-    const browserMatch = ua.match(/(chrome|firefox|safari|edg|opera|opr)[\/\s]?([\d.]+)/i);
-    const browser = browserMatch ? `${browserMatch[1]} ${browserMatch[2]}` : 'Unknown';
+    // Определяем браузер по твоему коду
+    let browser = "Неизвестный браузер";
+    if (ua.includes("YaBrowser")) {
+        browser = "Яндекс.Браузер";
+    } else if (ua.includes("OPR") || ua.includes("Opera")) {
+        browser = "Opera";
+    } else if (ua.includes("Edg")) {
+        browser = "Microsoft Edge";
+    } else if (ua.includes("Firefox")) {
+        browser = "Mozilla Firefox";
+    } else if (ua.includes("Chrome")) {
+        browser = "Google Chrome";
+    } else if (ua.includes("Safari")) {
+        browser = "Safari";
+    }
 
-    const deviceModelMatch = ua.match(/\(([^)]+)\)/);
-
+    // Время по Москве
     const nowInMSK = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }));
 
+    // Получение IP
     let ip = 'Не удалось получить';
     try {
         const res = await fetch("https://api.ipify.org?format=json");
@@ -70,30 +85,12 @@ async function logFullDeviceInfo() {
         console.warn("Ошибка при получении IP:", e);
     }
 
+    // Вывод в консоль
     console.log("📋 Информация об устройстве:");
     console.log("Платформа:", platform);
     console.log("Браузер:", browser);
     console.log("IP-адрес:", ip);
     console.log("Время захода (Москва):", nowInMSK.toLocaleString("ru-RU"));
-    
-}
-
-const ua = navigator.userAgent;
-
-if (ua.includes("YaBrowser")) {
-  console.log("Яндекс.Браузер");
-} else if (ua.includes("OPR") || ua.includes("Opera")) {
-  console.log("Opera");
-} else if (ua.includes("Edg")) {
-  console.log("Microsoft Edge");
-} else if (ua.includes("Firefox")) {
-  console.log("Mozilla Firefox");
-} else if (ua.includes("Chrome")) {
-  console.log("Google Chrome");
-} else if (ua.includes("Safari")) {
-  console.log("Safari");
-} else {
-  console.log("Неизвестный браузер");
 }
 
 logFullDeviceInfo();
