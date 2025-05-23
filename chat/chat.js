@@ -58,7 +58,6 @@ async function logFullDeviceInfo() {
     const browser = browserMatch ? `${browserMatch[1]} ${browserMatch[2]}` : 'Unknown';
 
     const deviceModelMatch = ua.match(/\(([^)]+)\)/);
-    const deviceModel = deviceModelMatch ? deviceModelMatch[1] : 'Не удалось определить';
 
     const nowInMSK = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }));
 
@@ -74,10 +73,26 @@ async function logFullDeviceInfo() {
     console.log("📋 Информация об устройстве:");
     console.log("Платформа:", platform);
     console.log("Браузер:", browser);
-    console.log("Модель устройства:", deviceModel);
     console.log("IP-адрес:", ip);
     console.log("Время захода (Москва):", nowInMSK.toLocaleString("ru-RU"));
+    
 }
+
+const userAgent = navigator.userAgent;
+
+  if (userAgent.includes("Firefox")) {
+    console.log("Mozilla Firefox");
+  } else if (userAgent.includes("Chrome") && !userAgent.includes("Edg") && !userAgent.includes("OPR")) {
+    console.log("Google Chrome");
+  } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+    console.log("Safari");
+  } else if (userAgent.includes("Edg")) {
+    console.log("Microsoft Edge");
+  } else if (userAgent.includes("OPR") || userAgent.includes("Opera")) {
+    console.log("Opera");
+  } else {
+    console.log("Неизвестный браузер");
+  }
 
 logFullDeviceInfo();
 
