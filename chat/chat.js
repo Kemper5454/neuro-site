@@ -4,16 +4,9 @@ const chat = document.getElementById("chat");
 const form = document.getElementById("input-form");
 const input = document.getElementById("input");
 
-const API_KEY = "sk-xq7wcUBqdHDCxyMwl4236oAmgc2XVpn3";
-const API_URL = "https://api.proxyapi.ru/openai/v1/chat/completions";
+const API_URL = 'https://paintings.eto-art.ru/chat';
 
 let messages = [systemInstruction];
-
-input.addEventListener('focus', () => {
-  setTimeout(() => {
-    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 300); // задержка, чтобы дождаться появления клавиатуры
-});
 
 function addMessage(role, content) {
     const msg = document.createElement("div");
@@ -21,7 +14,6 @@ function addMessage(role, content) {
     msg.innerHTML = linkify(content);
     document.querySelector('.chat-messages').appendChild(msg);
 
-    // Изменение padding в зависимости от количества сообщений
     const messageCount = document.querySelectorAll(".chat-messages .message").length;
     const chatContainer = document.getElementById("chat");
     if (messageCount === 0) {
@@ -32,8 +24,6 @@ function addMessage(role, content) {
 
     scrollToBottom();
 }
-
-
 
 function linkify(text) {
     const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
@@ -111,7 +101,6 @@ form.addEventListener("submit", async (e) => {
         const response = await fetch(API_URL, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${API_KEY}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -123,6 +112,8 @@ form.addEventListener("submit", async (e) => {
         });
 
         const data = await response.json();
+        console.log("Ответ сервера:", data);  // Выводим в консоль
+
         hideLoading();
 
         const reply = data.choices?.[0]?.message?.content || "[Ошибка в ответе]";
