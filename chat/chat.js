@@ -46,6 +46,9 @@ function getOrCreateDeviceId() {
     if (!id) {
         id = crypto.randomUUID();
         localStorage.setItem('deviceId', id);
+        console.log("🎉 Новый deviceId сгенерирован:", id);
+    } else {
+        console.log("🔑 Найден существующий deviceId:", id);
     }
     return id;
 }
@@ -120,7 +123,8 @@ form.addEventListener("submit", async (e) => {
                 messages,
                 temperature: 0.5,
                 max_tokens: 2000,
-                newSession: isNewSession
+                newSession: isNewSession,
+                deviceId
             })
         });
 
