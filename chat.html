@@ -31,15 +31,6 @@
         </form>
     </div>
     <script type="module" src="./chat/chat.js"></script>
-    <script>
-        const enterTime = Date.now();
-
-        window.addEventListener("beforeunload", () => {
-            const leaveTime = Date.now();
-            const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
-            console.log(`Всего времени на сайте: ${totalSeconds} секунд`);
-        });
-    </script>
 </body>
 
 </html>

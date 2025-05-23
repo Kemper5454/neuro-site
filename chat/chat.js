@@ -44,7 +44,6 @@ function linkify(text) {
 async function logFullDeviceInfo() {
     const ua = navigator.userAgent;
 
-    // Определяем платформу
     const uaLower = ua.toLowerCase();
     const platform = /android/.test(uaLower)
         ? 'Android'
@@ -56,7 +55,6 @@ async function logFullDeviceInfo() {
         ? 'macOS'
         : 'Other';
 
-    // Определяем браузер по твоему коду
     let browser = "Неизвестный браузер";
     if (ua.includes("YaBrowser")) {
         browser = "Яндекс.Браузер";
@@ -72,10 +70,16 @@ async function logFullDeviceInfo() {
         browser = "Safari";
     }
 
-    // Время по Москве
     const nowInMSK = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }));
 
-    // Получение IP
+    const enterTime = Date.now();
+
+    window.addEventListener("beforeunload", () => {
+        const leaveTime = Date.now();
+        const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
+        console.log(`Всего времени на сайте: ${totalSeconds} секунд`);
+    });
+
     let ip = 'Не удалось получить';
     try {
         const res = await fetch("https://api.ipify.org?format=json");
@@ -85,7 +89,6 @@ async function logFullDeviceInfo() {
         console.warn("Ошибка при получении IP:", e);
     }
 
-    // Вывод в консоль
     console.log("📋 Информация об устройстве:");
     console.log("Платформа:", platform);
     console.log("Браузер:", browser);
