@@ -78,21 +78,23 @@ async function logFullDeviceInfo() {
     
 }
 
-const userAgent = navigator.userAgent;
+const ua = navigator.userAgent;
 
-  if (userAgent.includes("Firefox")) {
-    console.log("Mozilla Firefox");
-  } else if (userAgent.includes("Chrome") && !userAgent.includes("Edg") && !userAgent.includes("OPR")) {
-    console.log("Google Chrome");
-  } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
-    console.log("Safari");
-  } else if (userAgent.includes("Edg")) {
-    console.log("Microsoft Edge");
-  } else if (userAgent.includes("OPR") || userAgent.includes("Opera")) {
-    console.log("Opera");
-  } else {
-    console.log("Неизвестный браузер");
-  }
+if (ua.includes("YaBrowser")) {
+  console.log("Яндекс.Браузер");
+} else if (ua.includes("OPR") || ua.includes("Opera")) {
+  console.log("Opera");
+} else if (ua.includes("Edg")) {
+  console.log("Microsoft Edge");
+} else if (ua.includes("Firefox")) {
+  console.log("Mozilla Firefox");
+} else if (ua.includes("Chrome")) {
+  console.log("Google Chrome");
+} else if (ua.includes("Safari")) {
+  console.log("Safari");
+} else {
+  console.log("Неизвестный браузер");
+}
 
 logFullDeviceInfo();
 
