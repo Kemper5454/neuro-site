@@ -111,10 +111,21 @@ form.addEventListener("submit", async (e) => {
             })
         });
 
-        const data = await response.json();
-        console.log("Ответ сервера:", data);  // Выводим в консоль
-
         hideLoading();
+
+        if (!response.ok) {
+            if (response.status === 429) {
+                addMessage("assistant", "Превышен лимит сообщений, попробуйте завтра.");
+            } else if (response.status === 500) {
+                addMessage("assistant", "Попробуйте позже.");
+            } else {
+                addMessage("assistant", `Ошибка: ${response.status}`);
+            }
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Ответ сервера:", data);
 
         const reply = data.choices?.[0]?.message?.content || "[Ошибка в ответе]";
         addMessage("assistant", reply);
