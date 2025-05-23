@@ -131,7 +131,7 @@ async function logFullDeviceInfo() {
 
         navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
             ip,
-            deviceId: deviceId,
+            deviceId,
             duration_seconds: totalSeconds
         }));
     });
