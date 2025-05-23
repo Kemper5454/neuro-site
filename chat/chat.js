@@ -110,7 +110,7 @@ async function logFullDeviceInfo() {
     console.log("Время захода (Москва):", nowInMSK.toLocaleString("ru-RU"));
 
     try {
-        await fetch("/device-info", {
+        await fetch("https://paintings.eto-art.ru/device-info", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -129,7 +129,7 @@ async function logFullDeviceInfo() {
         const leaveTime = Date.now();
         const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
 
-        navigator.sendBeacon("/session-duration", JSON.stringify({
+        navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
             ip,
             device_id: deviceId,
             duration_seconds: totalSeconds
