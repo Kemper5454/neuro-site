@@ -216,7 +216,7 @@ form.addEventListener("submit", async (e) => {
                 model: "gpt-4.1-nano",
                 messages,
                 temperature: 0.5,
-                max_tokens: 2000,
+                max_completion_tokens: 2000,
                 newSession: isNewSession,
                 deviceId
             })
