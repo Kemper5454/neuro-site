@@ -2,12 +2,6 @@
     box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -17,6 +11,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100svh;
     padding: 1rem;
 }
 
