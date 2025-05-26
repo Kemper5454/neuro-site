@@ -16,14 +16,17 @@ body {
 }
 
 .back-to-home {
-    position: absolute;
+    top: 1rem;
+    position: absolute !important;
     text-align: center;
     margin-top: 6px;
+    font-family: Mori, sans-serif;
 }
 
 .back-to-home a {
     color: #D2CBBF;
     font-size: 20px;
+    text-decoration: none;
 }
 
 .chat-title {
