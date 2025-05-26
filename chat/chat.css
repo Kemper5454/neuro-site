@@ -16,10 +16,9 @@ body {
 }
 
 .back-to-home {
-    top: 1rem;
+    top: 0.5rem;
     position: absolute !important;
     text-align: center;
-    margin-top: 6px;
     font-family: Mori, sans-serif;
 }
 
