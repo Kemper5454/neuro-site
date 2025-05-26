@@ -16,6 +16,7 @@ body {
 }
 
 .back-to-home {
+    position: absolute;
     text-align: center;
     margin-top: 6px;
 }
