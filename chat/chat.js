@@ -70,17 +70,14 @@ function addMessage(role, content) {
 }
 
 function linkify(text) {
-  // Обрабатываем жирный текст
   const bolded = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-  // Если есть @, разбиваем текст на части ДО и ПОСЛЕ него
   const atIndex = bolded.indexOf('@');
   if (atIndex === -1) {
-    return linkifyPart(bolded); // если @ нет — обрабатываем всё
+    return linkifyPart(bolded);
   }
-
   const beforeAt = bolded.slice(0, atIndex);
-  const afterAt = bolded.slice(atIndex); // включая сам @
+  const afterAt = bolded.slice(atIndex); 
 
   return linkifyPart(beforeAt) + afterAt;
 }
@@ -303,6 +300,12 @@ form.addEventListener("submit", async (e) => {
         addMessage("assistant", "Идёт плановое обновление! 🛠️ Сайт временно недоступен. Скоро вернёмся с улучшениями!");
     }
 });
+
+startInactivityTimer();
+// Обновляем активность при любом взаимодействии пользователя
+['mousemove', 'keydown', 'touchstart', 'click'].forEach(event =>
+    document.addEventListener(event, resumeSessionIfPaused, { passive: true })
+);
 
 document.addEventListener('click', (event) => {
     const isChatOpen = chatContainer.classList.contains('mobile-expanded');
