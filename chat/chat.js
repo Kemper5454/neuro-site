@@ -9,6 +9,35 @@ const API_URL = 'https://paintings.eto-art.ru/chat';
 let isNewSession = true;
 let messages = [systemInstruction];
 
+let sessionStartTime = Date.now();
+let sessionActive = true;
+let lastActiveTime = Date.now();
+let totalActiveTime = 0;
+let inactivityTimer = null;
+
+function startInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+        if (sessionActive) {
+            sessionActive = false;
+            const now = Date.now();
+            totalActiveTime += now - lastActiveTime;
+            console.log("⏸️ Сессия приостановлена из-за бездействия.");
+        }
+    }, 30000); // 30 секунд
+}
+
+function resumeSessionIfPaused() {
+    if (!sessionActive) {
+        sessionActive = true;
+        lastActiveTime = Date.now();
+        console.log("▶️ Сессия возобновлена.");
+    } else {
+        lastActiveTime = Date.now();
+    }
+    startInactivityTimer();
+}
+
 function getOrCreateDeviceId() {
     let id = localStorage.getItem('deviceId');
     if (!id) {
@@ -107,9 +136,11 @@ async function logFullDeviceInfo() {
     const enterTime = Date.now();
 
     window.addEventListener("beforeunload", () => {
-        const leaveTime = Date.now();
-        const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
-        console.log(`Всего времени на сайте: ${totalSeconds} секунд`);
+        if (sessionActive) {
+            totalActiveTime += Date.now() - lastActiveTime;
+        }
+        const totalSeconds = Math.floor(totalActiveTime / 1000);
+        console.log(`Всего активного времени на сайте: ${totalSeconds} секунд`);
     });
 
     let ip = 'Не удалось получить';
@@ -145,7 +176,10 @@ async function logFullDeviceInfo() {
 
     function handlePageExit() {
     const leaveTime = Date.now();
-    const totalSeconds = Math.floor((leaveTime - enterTime) / 1000);
+        if (sessionActive) {
+        totalActiveTime += Date.now() - lastActiveTime;
+    }
+    const totalSeconds = Math.floor(totalActiveTime / 1000);
 
     navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
         ip,
@@ -216,6 +250,7 @@ form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const userMessage = input.value.trim();
     if (!userMessage) return;
+    resumeSessionIfPaused();
 
     addMessage("user", userMessage);
     messages.push({ role: "user", content: userMessage });
