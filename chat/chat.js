@@ -13,18 +13,38 @@ let sessionStartTime = Date.now();
 let lastActiveTime = sessionStartTime;
 let totalActiveTime = 0;
 let sessionActive = true;
-let inactivityTimer = null;
+let inactivityTimer30s = null;
+let inactivityTimer5min = null;
+let sessionReported = false;
 
 function startInactivityTimer() {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
+    clearTimeout(inactivityTimer30s);
+    clearTimeout(inactivityTimer5min);
+
+    // ⏸️ Приостановка через 30 секунд
+    inactivityTimer30s = setTimeout(() => {
         if (sessionActive) {
             sessionActive = false;
             const now = Date.now();
             totalActiveTime += now - lastActiveTime;
-            console.log("⏸️ Сессия приостановлена.");
+            console.log("⏸️ Сессия приостановлена (30 сек).");
         }
-    }, 30000);
+    }, 30 * 1000);
+
+    // ⏳ Отправка на сервер через 5 минут
+    inactivityTimer5min = setTimeout(() => {
+        if (sessionActive) {
+            sessionActive = false;
+            const now = Date.now();
+            totalActiveTime += now - lastActiveTime;
+            console.log("⏸️ Сессия завершена (5 минут).");
+
+            if (!sessionReported) {
+                sendSessionDuration();
+                sessionReported = true;
+            }
+        }
+    }, 5 * 60 * 1000);
 }
 
 function resumeSessionIfPaused() {
@@ -130,14 +150,6 @@ async function logFullDeviceInfo() {
 
     const enterTime = Date.now();
 
-    window.addEventListener("beforeunload", () => {
-        if (sessionActive) {
-            totalActiveTime += Date.now() - lastActiveTime;
-        }
-        const totalSeconds = Math.floor(totalActiveTime / 1000);
-        console.log(`Всего активного времени на сайте: ${totalSeconds} секунд`);
-    });
-
     let ip = 'Не удалось получить';
     try {
         const res = await fetch("https://api.ipify.org?format=json");
@@ -169,25 +181,25 @@ async function logFullDeviceInfo() {
         console.warn("Не удалось отправить deviceInfo:", err);
     }
 
-    function handlePageExit() {
-    const leaveTime = Date.now();
-        if (sessionActive) {
-        totalActiveTime += Date.now() - lastActiveTime;
-    }
+    function sendSessionDuration() {
     const totalSeconds = Math.floor(totalActiveTime / 1000);
-
     navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
         ip,
         deviceId,
         duration_seconds: totalSeconds
     }));
+}
+
+    function handlePageExit() {
+    if (sessionActive) {
+        totalActiveTime += Date.now() - lastActiveTime;
     }
 
-    document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "hidden") {
-            handlePageExit();
-        }
-    });
+    if (!sessionReported) {
+        sendSessionDuration();
+        sessionReported = true;
+    }
+}
 
     window.addEventListener("pagehide", () => {
         handlePageExit();
