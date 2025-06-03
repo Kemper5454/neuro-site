@@ -41,18 +41,25 @@ function addMessage(role, content) {
 }
 
 function linkify(text) {
-  // 1. Обрабатываем жирный текст **...**
-  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Обрабатываем жирный текст
+  const bolded = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-  // 2. Обрабатываем ссылки, избегая тех, что перед "@"
+  // Если есть @, разбиваем текст на части ДО и ПОСЛЕ него
+  const atIndex = bolded.indexOf('@');
+  if (atIndex === -1) {
+    return linkifyPart(bolded); // если @ нет — обрабатываем всё
+  }
+
+  const beforeAt = bolded.slice(0, atIndex);
+  const afterAt = bolded.slice(atIndex); // включая сам @
+
+  return linkifyPart(beforeAt) + afterAt;
+}
+
+function linkifyPart(text) {
   const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
 
-  text = text.replace(urlPattern, (match, offset) => {
-    const before = text[offset - 1];
-    if (before === '@') {
-      return match; // Не превращаем в ссылку, если перед @
-    }
-
+  return text.replace(urlPattern, (match) => {
     const trailingPunctuation = /[.,!?;:)»"'’]+$/;
     const punctuation = match.match(trailingPunctuation);
     const cleanURL = match.replace(trailingPunctuation, '');
@@ -62,9 +69,8 @@ function linkify(text) {
 
     return `<a href="${href}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>${punctuation ? punctuation[0] : ''}`;
   });
-
-  return text;
 }
+
 
 
 async function logFullDeviceInfo() {
