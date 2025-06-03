@@ -41,19 +41,31 @@ function addMessage(role, content) {
 }
 
 function linkify(text) {
-    const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
+  // 1. Обрабатываем жирный текст **...**
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-    return text.replace(urlPattern, (match) => {
-        const trailingPunctuation = /[.,!?;:)»"'’]+$/;
-        const punctuation = match.match(trailingPunctuation);
-        const cleanURL = match.replace(trailingPunctuation, '');
+  // 2. Обрабатываем ссылки, избегая тех, что перед "@"
+  const urlPattern = /(?:(?:https?:\/\/)?(?:www\.)?[\w-]+\.[\w./?=&%#-]*[\w/-])/gi;
 
-        const isFullURL = /^https?:\/\//i.test(cleanURL);
-        const href = isFullURL ? cleanURL : '//' + cleanURL;
+  text = text.replace(urlPattern, (match, offset) => {
+    const before = text[offset - 1];
+    if (before === '@') {
+      return match; // Не превращаем в ссылку, если перед @
+    }
 
-        return `<a href="${href}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>${punctuation ? punctuation[0] : ''}`;
-    });
+    const trailingPunctuation = /[.,!?;:)»"'’]+$/;
+    const punctuation = match.match(trailingPunctuation);
+    const cleanURL = match.replace(trailingPunctuation, '');
+
+    const isFullURL = /^https?:\/\//i.test(cleanURL);
+    const href = isFullURL ? cleanURL : '//' + cleanURL;
+
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>${punctuation ? punctuation[0] : ''}`;
+  });
+
+  return text;
 }
+
 
 async function logFullDeviceInfo() {
     const ua = navigator.userAgent;
