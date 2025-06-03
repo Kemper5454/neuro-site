@@ -10,9 +10,9 @@ let isNewSession = true;
 let messages = [systemInstruction];
 
 let sessionStartTime = Date.now();
-let sessionActive = true;
-let lastActiveTime = Date.now();
+let lastActiveTime = sessionStartTime;
 let totalActiveTime = 0;
+let sessionActive = true;
 let inactivityTimer = null;
 
 function startInactivityTimer() {
@@ -22,9 +22,9 @@ function startInactivityTimer() {
             sessionActive = false;
             const now = Date.now();
             totalActiveTime += now - lastActiveTime;
-            console.log("⏸️ Сессия приостановлена из-за бездействия.");
+            console.log("⏸️ Сессия приостановлена.");
         }
-    }, 30000); // 30 секунд
+    }, 30000);
 }
 
 function resumeSessionIfPaused() {
@@ -32,8 +32,6 @@ function resumeSessionIfPaused() {
         sessionActive = true;
         lastActiveTime = Date.now();
         console.log("▶️ Сессия возобновлена.");
-    } else {
-        lastActiveTime = Date.now();
     }
     startInactivityTimer();
 }
