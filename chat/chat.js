@@ -183,10 +183,12 @@ async function logFullDeviceInfo() {
 
     function sendSessionDuration() {
     const totalSeconds = Math.floor(totalActiveTime / 1000);
+    const sessionId = localStorage.getItem("sessionId");
     navigator.sendBeacon("https://paintings.eto-art.ru/session-duration", JSON.stringify({
         ip,
         deviceId,
-        duration_seconds: totalSeconds
+        duration_seconds: totalSeconds,
+        session_id: sessionId
     }));
 }
 
@@ -297,6 +299,10 @@ form.addEventListener("submit", async (e) => {
 
         const data = await response.json();
         console.log("Ответ сервера:", data);
+
+        if (data.sessionId) {
+            localStorage.setItem("sessionId", data.sessionId);
+        }
 
         const reply = data.choices?.[0]?.message?.content || "[Ошибка в ответе]";
         addMessage("assistant", reply);
